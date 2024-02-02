@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI)
+.then(()=>console.log("Db Connected successfully"))
+.catch(()=> console.log("DB Connection failed"))
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -16,6 +18,4 @@ const UserSchema = new mongoose.Schema({
   }
 }, { timestamps: true })
 
-const Users = mongoose.model('Users', UserSchema)
-
-module.exports = Users;
+module.exports = mongoose.model('Users', UserSchema)

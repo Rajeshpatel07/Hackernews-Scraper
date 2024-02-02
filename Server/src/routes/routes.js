@@ -1,23 +1,11 @@
 const express = require('express');
 const router =  express.Router();
-
+const jwtverify=require('../middlewares/jwtVerify')
 const {home ,register,login,dashboard} = require('../controllers/controller')
 
-
-// for the home route
-
-router.get('/',home)
-
-
-// for register page
-
-router.post('/register',register);
-
-// for login route
-
-router.post('/login',login)
-
-
-router.get('/dashboard',dashboard);
+router.route('/').get(home)
+router.route('/register').post(register)
+router.route('/login').post(login)
+router.route('/dashboard').get(jwtverify,dashboard)
 
 module.exports = router
