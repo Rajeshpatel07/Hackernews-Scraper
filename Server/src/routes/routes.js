@@ -11,11 +11,11 @@ router.get('/',home)
 
 // for register page
 
-router.get('/register',register);
+router.post('/register',register);
 
 // for login route
 
-router.get('/login',login)
+router.post('/login',login)
 
 
 router.get('/dashboard',dashboard);
