@@ -1,9 +1,30 @@
 import { useState,startTransition } from "react"
-
+// import RegisterApi from "../../hooks/RegisterApi"
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Register(){
 
-    // const [isTransitioning, startTransition] =useTransition();
+    const [email,setemail]=useState('')
+    const [password,setpassword]=useState('')
+    
+    const navigate=useNavigate();
+
+    const Registry=async(e)=>{
+        e.preventDefault()
+        try{
+            const res=await axios.post('http://localhost:8000/register',{
+                email:email,
+                password:password
+            })
+            console.log(res);
+            if(res.data["message"]==='Registered Successfully'){
+                navigate('/login')
+            }
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     return(
         <div className="hero min-h-screen bg-base-200">
@@ -18,19 +39,30 @@ function Register(){
             <label className="label">
                 <span className="label-text">Email</span>
             </label>
-            <input type="email" placeholder="email" className="input input-bordered" required />
+            <input
+            type="email" placeholder="email" className="input input-bordered" required 
+            value={email}
+            onChange={(e)=> setemail(e.target.value)}
+            />
             </div>
             <div className="form-control">
             <label className="label">
                 <span className="label-text">Password</span>
             </label>
-            <input type="password" placeholder="password" className="input input-bordered" required />
+            <input 
+            type="password" placeholder="password" className="input input-bordered" required 
+            value={password}
+            onChange={(e)=> setpassword(e.target.value)}
+            />
             <label className="label">
                 <a href="#" className="label-text-alt link link-hover">Forget Password?</a>
             </label>
             </div>
             <div className="form-control mt-6">
-            <button className="btn btn-primary">Register</button>
+            <button 
+            className="btn btn-primary"
+            onClick={Registry}
+            >Register</button>
             </div>
         </form>
         </div>

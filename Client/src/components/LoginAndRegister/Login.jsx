@@ -1,9 +1,32 @@
-import { useState,startTransition } from "react"
+import { useState} from "react"
 import { Link } from "react-router-dom"
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Login(){
 
-    // const [isTransitioning, startTransition] = useTransition();
+    const [email,setemail]=useState('')
+    const [password,setpassword]=useState('')
+    
+    const navigate=useNavigate();
+
+    const logging=async(e)=>{
+        e.preventDefault()
+        try{
+            const res=await axios.post('http://localhost:8000/login',{
+                email:email,
+                password:password
+            },{ withCredentials: true })
+            console.log(res);
+        
+            if(res.data.id){
+                navigate('/dashboard')
+            }
+
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     return(
         <div className="hero min-h-screen bg-base-200">
@@ -18,19 +41,27 @@ function Login(){
                 <label className="label">
                     <span className="label-text">Email</span>
                 </label>
-                <input type="email" placeholder="email" className="input input-bordered" required />
+                <input type="email" placeholder="email" className="input input-bordered" required 
+                value={email}
+                onChange={(e)=>setemail(e.target.value)}
+                />
                 </div>
                 <div className="form-control">
                 <label className="label">
                     <span className="label-text">Password</span>
                 </label>
-                <input type="password" placeholder="password" className="input input-bordered" required />
+                <input type="password" placeholder="password" className="input input-bordered" required 
+                value={password}
+                onChange={(e)=> setpassword(e.target.value)}
+                />
                 <label className="label">
                     <Link to="/register" className="label-text-alt link link-hover"> Haven't Register ? Click here</Link>
                 </label>
                 </div>
                 <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary"
+                onClick={logging}
+                >Login</button>
                 </div>
             </form>
             </div>

@@ -9,6 +9,7 @@ const home = (req,res)=>{
 
 const register = async(req,res)=>{
     const {email,password}=req.body;
+    // console.log(email,password)
     if(!email || !password){
         return res.json({message:"All fields are necessary"})
     }
@@ -19,11 +20,11 @@ const register = async(req,res)=>{
             email:email,
             password:hashpassword
         })
-        console.log(user)
-        return res.json(user)
+        // console.log(user)
+        return res.json({message:"Registered Successfully"})
     }
     catch{
-        res.json({message:"Error in storing data"})
+        res.json({message:"Registration failed"})
     }
 }
 
@@ -37,19 +38,19 @@ const login = async (req,res)=>{
         if(!user){
             return res.json({message:"Please register first"})
         }
-        const comparePassword=bcrypt.compare(password,user.password)
+        const comparePassword=await bcrypt.compare(password,user.password)
         if(comparePassword){
             const AccessToken=await jwt.sign({id:user._id},process.env.SECRET_KEY)
             console.log(AccessToken);
-            res.cookie('jwt',AccessToken,{httpOnly:true});
-            // return res.redirect('/dashboard')
+            res.cookie('jwt',AccessToken);
             return res.json({id:user._id});
         }else{
             return res.json({message:"Failed to generate Token"})
         }
     }
-    catch{
-        res.json({message:"Error in soring data"})
+    catch(err){
+        console.log(err)
+        res.json({message:"Error Occur try again"})
     }
 }
 
