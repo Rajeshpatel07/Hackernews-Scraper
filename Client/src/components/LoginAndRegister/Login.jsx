@@ -19,8 +19,9 @@ function Login(){
             },{ withCredentials: true })
             console.log(res);
         
-            if(res.data.id){
-                navigate('/dashboard')
+            if(res){
+                const request=res.request.responseURL.split('/')
+                navigate(`/${request[3]}`)
             }
 
         }catch(err){

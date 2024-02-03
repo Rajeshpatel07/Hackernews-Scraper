@@ -1,5 +1,4 @@
-import { useState,startTransition } from "react"
-// import RegisterApi from "../../hooks/RegisterApi"
+import { useState} from "react"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 

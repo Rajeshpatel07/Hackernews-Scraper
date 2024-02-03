@@ -9,18 +9,15 @@ const home = (req,res)=>{
 
 const register = async(req,res)=>{
     const {email,password}=req.body;
-    // console.log(email,password)
     if(!email || !password){
         return res.json({message:"All fields are necessary"})
     }
     try{
         const hashpassword=await bcrypt.hash(password,10);
-        // console.log(hashpassword);
         const user=await db.create({
             email:email,
             password:hashpassword
         })
-        // console.log(user)
         return res.json({message:"Registered Successfully"})
     }
     catch{
@@ -42,8 +39,8 @@ const login = async (req,res)=>{
         if(comparePassword){
             const AccessToken=await jwt.sign({id:user._id},process.env.SECRET_KEY)
             console.log(AccessToken);
-            res.cookie('jwt',AccessToken);
-            return res.json({id:user._id});
+            res.cookie('jwt',AccessToken,{httpOnly:true});
+            return res.redirect('/dashboard')
         }else{
             return res.json({message:"Failed to generate Token"})
         }
@@ -55,7 +52,7 @@ const login = async (req,res)=>{
 }
 
 const dashboard =(req,res)=>{
-    return res.send("this is the dashboard where the news is shown ");
+    return res.json({message:"Welcome"})
 }
 
 const logout=(req,res)=>{
