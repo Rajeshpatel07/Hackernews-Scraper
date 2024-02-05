@@ -5,17 +5,16 @@ import {useNavigate} from 'react-router-dom'
 import {getStory,getStoryIds} from '../../hooks/NewsApi'
 
 function Dashboard(){
-
+    
+    const navigate=useNavigate()
     const [StoryIds,setStoryIds]=useState([]);
     const [Story,setStory]=useState([])
 
-    const navigate=useNavigate()
     axios.defaults.withCredentials = true;
 
     const verify=async (token)=>{
         try{
             const res=await axios.get('http://localhost:8000/dashboard')
-            console.log(res)
             if(res.data.message==="Go to Home"){
                 navigate('/')
             }
@@ -42,7 +41,7 @@ function Dashboard(){
             getStory(StoryIds).then(data =>setStory(data));
     }, [StoryIds,Story,setStory]);
 
-    console.log(StoryIds)
+    // console.log(StoryIds) ---> log the ids of the stories
     console.log(Story)
 
     return(

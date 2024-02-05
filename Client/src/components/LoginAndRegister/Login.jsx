@@ -17,7 +17,7 @@ function Login(){
                 email:email,
                 password:password
             },{ withCredentials: true })
-            console.log(res);
+            // console.log(res); --> logs the response
         
             if(res){
                 const request=res.request.responseURL.split('/')

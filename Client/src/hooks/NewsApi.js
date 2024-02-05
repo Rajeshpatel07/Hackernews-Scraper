@@ -4,10 +4,9 @@ export const newStoriesUrl = `${baseUrl}newstories.json`;
 export const storyUrl = `${baseUrl}item/`;
 
 export const getStory = async (storyId) => {
-    console.log(storyId)
     const arr=[];
     try{
-        await new Promise(resolve => setTimeout(resolve, 10000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
         for(let i=0;i<10;i++){
             const response = await fetch(`${storyUrl + storyId[i]}.json`);
             const result=await response.json()

@@ -16,7 +16,9 @@ function Register(){
                 email:email,
                 password:password
             })
-            console.log(res);
+            
+            // console.log(res);  --> logs the response
+
             if(res.data["message"]==='Registered Successfully'){
                 navigate('/login')
             }

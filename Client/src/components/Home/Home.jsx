@@ -16,7 +16,7 @@ function Home() {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
               </label>
             </div>
-            <div className="flex-1 px-2 mx-2"><Link><img className="h-16 w-32" src="logo.png" alt="logo" /></Link></div>
+            <div className="flex-1 px-2 mx-2"><Link><img className="w-40 h-6/6" src="logo1.png" alt="logo" /></Link></div>
             <div className="flex-none hidden lg:block z-10">
               <ul className="menu menu-horizontal ">
                 {/* Navbar menu content here */}

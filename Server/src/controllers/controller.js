@@ -38,7 +38,6 @@ const login = async (req,res)=>{
         const comparePassword=await bcrypt.compare(password,user.password)
         if(comparePassword){
             const AccessToken=await jwt.sign({id:user._id},process.env.SECRET_KEY)
-            console.log(AccessToken);
             res.cookie('jwt',AccessToken,{httpOnly:true});
             return res.redirect('/dashboard')
         }else{
