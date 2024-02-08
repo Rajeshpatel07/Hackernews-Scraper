@@ -2,28 +2,26 @@
 export const baseUrl = 'https://hacker-news.firebaseio.com/v0/';
 export const newStoriesUrl = `${baseUrl}newstories.json`;
 export const storyUrl = `${baseUrl}item/`;
-
-export const getStory = async (storyId) => {
-    const arr=[];
-    try{
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        for(let i=0;i<10;i++){
-            const response = await fetch(`${storyUrl + storyId[i]}.json`);
-            const result=await response.json()
-            console.log(result)
-            arr.push(result)
-        }
-        return arr;
-    }
-    catch(err){
-        console.log(err)
+export const getStory = async (storyIds) => {
+    try {
+        const stories = await Promise.all(
+            storyIds.slice(0, 10).map(async (storyId) => {
+                const response = await fetch(`${storyUrl}${storyId}.json`);
+                return response.json();
+            })
+        );
+        return stories.filter(story => story); 
+    } catch (err) {
+        console.log(err);
+        return [];
     }
 };
+
 
 export const getStoryIds = async () => {
     try{
         const response = await fetch(newStoriesUrl);
-        const result=response.json()
+        const result= await response.json()
         return result;
     }
     catch(err){
