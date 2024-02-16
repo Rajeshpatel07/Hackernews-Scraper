@@ -26,7 +26,7 @@ function Home() {
             </div>
           </div>
           {/* Page content here */}
-          <Content/>
+          <Content />
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
@@ -34,6 +34,8 @@ function Home() {
             {/* Sidebar content here */}
             <li><Link to="/">Home</Link></li>
             <li><Link to="/dashboard">dashboard</Link></li>
+            <li><Link to="/register">Register</Link></li>
+            <li><Link to="/login">Login</Link></li>
           </ul>
         </div>
       </div>
